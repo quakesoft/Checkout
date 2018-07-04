@@ -48,11 +48,23 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockInput.cs" />
+    <Compile Include="MockService.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CheckoutClient\CheckoutClient.csproj">
+      <Project>{517c5bc7-618f-447d-ae71-1f120418bf3f}</Project>
+      <Name>CheckoutClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CheckoutCore\CheckoutCore.csproj">
+      <Project>{20982cd0-1ee0-4c50-8f52-a5b1e41de0d4}</Project>
+      <Name>CheckoutCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

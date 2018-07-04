@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using CheckoutClient.CheckoutServiceReference;
+using CheckoutClient.Backend;
+using CheckoutClient.Interaction;
 
 namespace CheckoutClient
 {
-    class REPL
+    public class REPL
     {
         Dictionary<string, int> items = new Dictionary<string, int>();
+        Input input;
+        ServiceStub service;
 
-        public void Run()
+        public REPL(Input input, ServiceStub service)
+        {
+            this.input = input;
+            this.service = service;
+        }
+
+        public decimal Run()
         {
             while (true)
             {
@@ -18,16 +27,13 @@ namespace CheckoutClient
                 while (!skuIsValid)
                 {
                     Console.WriteLine("Enter SKU or type checkout:");
-                    sku = Console.ReadLine();
+                    sku = input.GetInput();
                     if (sku == "checkout")
                     {
-                        using (var c = new ServiceClient())
-                        {
-                            var total = c.CalculateTotals(items);
-                            Console.WriteLine($"The basket total is: {total}");
-                        }
-                        Console.ReadLine();
-                        return;
+                        decimal total = service.Checkout(items);
+                        Console.WriteLine($"The basket total is: {total}");
+                        input.GetInput();
+                        return total;
                     }
                     skuIsValid = Regex.IsMatch(sku, @"[A-Z]\d{2}");
                     if (!skuIsValid) Console.WriteLine("SKU must be an uppercase letter followed by 2 digits.");
@@ -39,7 +45,7 @@ namespace CheckoutClient
                 while (!qtyIsValid)
                 {
                     Console.WriteLine("Enter quantity (1):");
-                    itemQty = Console.ReadLine();
+                    itemQty = input.GetInput();
                     if (string.IsNullOrWhiteSpace(itemQty)) itemQty = "1";
                     qtyIsValid = Regex.IsMatch(itemQty, @"\d{1,4}");
                     if (!qtyIsValid) Console.WriteLine("Item quantity must be a number between 1 and 9999.");

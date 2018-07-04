@@ -1,10 +1,15 @@
-﻿namespace CheckoutClient
+﻿using CheckoutClient.Backend;
+using CheckoutClient.Interaction;
+
+namespace CheckoutClient
 {
     class Program
     {
         static void Main(string[] args)
         {
-            new REPL().Run();
+            var input = new UserInput();
+            var service = new CheckoutServer();
+            new REPL(input, service).Run();
         }
     }
 }

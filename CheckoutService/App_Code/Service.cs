@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web;
+using CheckoutCore;
+using CheckoutCore.Model;
 using Newtonsoft.Json;
 
 public class Service : IService
