@@ -39,3 +39,5 @@ Enter SKU or type checkout:
 checkout
 The basket total is: 4.90
 ```
+
+*Work is onging with this project. Code will be refactored for better testability and unit tests will be added.*
