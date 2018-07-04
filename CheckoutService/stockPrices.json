@@ -1,0 +1,30 @@
+﻿[
+	{
+		"SKU": "A99",
+		"Description": "Apple",
+		"UnitPrice": 0.50,
+		"SpecialOffer": {
+			"Quantity": 3,
+			"Price": 1.30
+		}
+	},
+	{
+		"SKU": "B15",
+		"Description": "Biscuits",
+		"UnitPrice": 0.30,
+		"SpecialOffer": {
+			"Quantity": 2,
+			"Price": 0.45
+		}
+	},
+	{
+		"SKU": "C40",
+		"Description": "Coffee",
+		"UnitPrice": 1.80
+	},
+	{
+		"SKU": "T23",
+		"Description": "Tissues",
+		"UnitPrice": 0.99
+	}
+]
