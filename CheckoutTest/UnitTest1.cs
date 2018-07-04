@@ -1,4 +1,6 @@
-﻿using CheckoutClient;
+﻿using System.Collections.Generic;
+using CheckoutClient;
+using CheckoutCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CheckoutTest
@@ -15,7 +17,33 @@ namespace CheckoutTest
 
             var total = repl.Run();
 
-            Assert.AreEqual(4.90M, total);
+            Assert.AreEqual(8M, total);
+        }
+
+        [TestMethod]
+        public void ShouldCalculateTotalsPerItem()
+        {
+            var prices = new MockPrices().GetMockPrices();
+            var calc = new CartTotalCalculator(prices);
+
+            var total = calc.GetTotalForItem(new KeyValuePair<string, int>("A99", 4));
+
+            Assert.AreEqual(1.80M, total);
+        }
+
+        [TestMethod]
+        public void ShouldCalculateTotals()
+        {
+            var prices = new MockPrices().GetMockPrices();
+            var calc = new CartTotalCalculator(prices);
+
+            var total = calc.GetTotal(new Dictionary<string, int>
+            {
+                ["A99"] = 4,
+                ["C40"] = 1
+            });
+
+            Assert.AreEqual(3.60M, total);
         }
     }
 }
