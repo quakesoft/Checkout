@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 
@@ -10,25 +9,7 @@ public class Service : IService
     {
         var prices = GetPrices();
 
-        var total = 0M;
-
-        foreach (var item in items)
-        {
-            var priceInfo = prices.FirstOrDefault(p => p.SKU == item.Key);
-            if (priceInfo == null) continue;
-
-            var offer = priceInfo.SpecialOffer;
-            if (offer != null)
-            {
-                total += (item.Value / offer.Quantity) * offer.Price + (item.Value % offer.Quantity) * priceInfo.UnitPrice;
-            }
-            else
-            {
-                total += item.Value * priceInfo.UnitPrice;
-            }
-        }
-
-        return total;
+        return new CartTotalCalculator(prices).GetTotal(items);
     }
 
     private static List<PriceInfo> GetPrices()
@@ -38,4 +19,3 @@ public class Service : IService
         return JsonConvert.DeserializeObject<List<PriceInfo>>(json);
     }
 }
-
